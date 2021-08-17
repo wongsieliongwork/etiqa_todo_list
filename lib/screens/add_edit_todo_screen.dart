@@ -106,18 +106,27 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        DateTime date;
+                        if (widget.isEdit) {
+                          date = DateTime.parse(startDate);
+                        } else {
+                          date = DateTime.now();
+                        }
                         FocusScope.of(context).unfocus();
                         DatePicker.showDatePicker(context,
                             showTitleActions: true,
-                            minTime: DateTime(2021, 3, 5),
-                            maxTime: DateTime(2100, 6, 7), onChanged: (date) {
+                            minTime: DateTime.now(),
+                            maxTime: DateTime(2100, 12, 31), onChanged: (date) {
                           print('change $date');
                         }, onConfirm: (date) {
                           setState(() {
                             startDate =
                                 "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
                           });
-                        }, currentTime: DateTime.now(), locale: LocaleType.en);
+                        },
+                            currentTime:
+                                DateTime(date.year, date.month, date.day),
+                            locale: LocaleType.en);
                       },
                       child: SizedBox(
                           width: double.infinity,
@@ -154,11 +163,17 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        DateTime date;
+                        if (widget.isEdit) {
+                          date = DateTime.parse(endDate);
+                        } else {
+                          date = DateTime.now();
+                        }
                         FocusScope.of(context).unfocus();
                         DatePicker.showDatePicker(context,
                             showTitleActions: true,
-                            minTime: DateTime(2021, 3, 5),
-                            maxTime: DateTime(2100, 6, 7), onChanged: (date) {
+                            minTime: DateTime.now(),
+                            maxTime: DateTime(2100, 12, 31), onChanged: (date) {
                           print('change $date');
                         }, onConfirm: (date) {
                           print('confirm $date');
@@ -167,7 +182,10 @@ class _AddEditScreenState extends State<AddEditScreen> {
                             endDate =
                                 "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
                           });
-                        }, currentTime: DateTime.now(), locale: LocaleType.en);
+                        },
+                            currentTime:
+                                DateTime(date.year, date.month, date.day),
+                            locale: LocaleType.en);
                       },
                       child: SizedBox(
                           width: double.infinity,
