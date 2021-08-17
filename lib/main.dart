@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Etiqa Todo',
+        title: 'Etiqa TodoList',
         // remove debug logo on app
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

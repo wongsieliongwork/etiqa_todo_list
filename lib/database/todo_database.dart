@@ -11,7 +11,7 @@ class TodoDatabase {
 
   Future<Database> _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, 'test1.db');
+    String path = join(documentsDirectory.path, 'test12.db');
     return await openDatabase(
       path,
       version: 1,
