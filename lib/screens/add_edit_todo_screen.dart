@@ -119,10 +119,11 @@ class _AddEditScreenState extends State<AddEditScreen> {
                         }
                         FocusScope.of(context).unfocus();
 
-                        DatePicker.showDatePicker(context,
+                        DatePicker.showDateTimePicker(context,
                             showTitleActions: true,
                             minTime: DateTime.now(),
-                            maxTime: DateTime(2100, 12, 31), onChanged: (date) {
+                            maxTime: DateTime(2100, 12, 31, 00, 00),
+                            onChanged: (date) {
                           print('change $date');
                         }, onConfirm: (date) {
                           setState(() {
@@ -134,6 +135,8 @@ class _AddEditScreenState extends State<AddEditScreen> {
                               date.year,
                               date.month,
                               date.day,
+                              date.hour,
+                              date.minute,
                             ),
                             locale: LocaleType.en);
                       },
@@ -179,10 +182,11 @@ class _AddEditScreenState extends State<AddEditScreen> {
                           date = DateTime.now();
                         }
                         FocusScope.of(context).unfocus();
-                        DatePicker.showDatePicker(context,
+                        DatePicker.showDateTimePicker(context,
                             showTitleActions: true,
                             minTime: DateTime.now(),
-                            maxTime: DateTime(2100, 12, 31), onChanged: (date) {
+                            maxTime: DateTime(2100, 12, 31, 00, 00),
+                            onChanged: (date) {
                           print('change $date');
                         }, onConfirm: (date) {
                           print('confirm $date');
@@ -196,6 +200,8 @@ class _AddEditScreenState extends State<AddEditScreen> {
                               date.year,
                               date.month,
                               date.day,
+                              date.hour,
+                              date.minute,
                             ),
                             locale: LocaleType.en);
                       },
