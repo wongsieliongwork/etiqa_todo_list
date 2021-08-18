@@ -30,9 +30,6 @@ dependencies:
   flutter_launcher_icons: ^0.9.1
   fluttertoast: ^8.0.8
   jiffy: ^4.1.0
-  path: ^1.8.0
-  path_provider: ^2.0.2
-  sqflite: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:

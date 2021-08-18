@@ -2,17 +2,27 @@ import 'package:etiqa_todo_list/screens/add_edit_todo_screen.dart';
 import 'package:etiqa_todo_list/services/todoService.dart';
 import 'package:etiqa_todo_list/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
 
 class CardTodo extends StatelessWidget {
   final dynamic todoData;
 
   CardTodo(this.todoData);
+  String getTimeString(int value) {
+    final int hour = value ~/ 60;
+    final int minutes = value % 60;
+
+    return '${hour.toString().padLeft(2, "0")}:${minutes.toString().padLeft(2, "0")}';
+  }
 
   @override
   Widget build(BuildContext context) {
     DateTime startDate = DateTime.parse(todoData['startDate']);
     DateTime endDate = DateTime.parse(todoData['endDate']);
-    final difference = endDate.difference(startDate).inDays;
+    final difference = Jiffy(endDate).diff(startDate, Units.MINUTE);
+    final now = Duration(minutes: difference.toInt());
+    String sDuration =
+        "${now.inDays} Days\n${now.inHours.remainder(24)} Hours\n${(now.inMinutes.remainder(60))} Minutes";
     return Dismissible(
       key: UniqueKey(),
       onDismissed: (DismissDirection direction) {
@@ -58,6 +68,7 @@ class CardTodo extends StatelessWidget {
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Column(
                                     crossAxisAlignment:
@@ -71,9 +82,15 @@ class CardTodo extends StatelessWidget {
                                         height: 5,
                                       ),
                                       Text(
-                                        todoData['startDate'],
+                                        Jiffy(startDate).format('d MMM yyyy'),
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        Jiffy(startDate).format('h:mm a'),
                                       )
                                     ],
                                   ),
@@ -89,10 +106,16 @@ class CardTodo extends StatelessWidget {
                                         height: 5,
                                       ),
                                       Text(
-                                        todoData['endDate'],
+                                        Jiffy(endDate).format('d MMM yyyy'),
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        Jiffy(endDate).format('h:mm a'),
+                                      )
                                     ],
                                   ),
                                   Column(
@@ -107,7 +130,9 @@ class CardTodo extends StatelessWidget {
                                         height: 5,
                                       ),
                                       Text(
-                                        '$difference Days',
+                                        // '$difference Days',
+                                        // getTimeString(difference.toInt()),
+                                        sDuration,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       )

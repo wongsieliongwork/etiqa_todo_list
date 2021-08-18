@@ -118,7 +118,8 @@ class _AddEditScreenState extends State<AddEditScreen> {
                           date = DateTime.now();
                         }
                         FocusScope.of(context).unfocus();
-                        DatePicker.showDatePicker(context,
+
+                        DatePicker.showDateTimePicker(context,
                             showTitleActions: true,
                             minTime: DateTime.now(),
                             maxTime: DateTime(2100, 12, 31), onChanged: (date) {
@@ -126,11 +127,11 @@ class _AddEditScreenState extends State<AddEditScreen> {
                         }, onConfirm: (date) {
                           setState(() {
                             startDate =
-                                "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+                                "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
                           });
                         },
-                            currentTime:
-                                DateTime(date.year, date.month, date.day),
+                            currentTime: DateTime(date.year, date.month,
+                                date.day, date.hour, date.minute),
                             locale: LocaleType.en);
                       },
                       child: SizedBox(
@@ -175,7 +176,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                           date = DateTime.now();
                         }
                         FocusScope.of(context).unfocus();
-                        DatePicker.showDatePicker(context,
+                        DatePicker.showDateTimePicker(context,
                             showTitleActions: true,
                             minTime: DateTime.now(),
                             maxTime: DateTime(2100, 12, 31), onChanged: (date) {
@@ -185,11 +186,11 @@ class _AddEditScreenState extends State<AddEditScreen> {
 
                           setState(() {
                             endDate =
-                                "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+                                "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
                           });
                         },
-                            currentTime:
-                                DateTime(date.year, date.month, date.day),
+                            currentTime: DateTime(date.year, date.month,
+                                date.day, date.hour, date.minute),
                             locale: LocaleType.en);
                       },
                       child: SizedBox(
