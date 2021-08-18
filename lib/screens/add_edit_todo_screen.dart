@@ -119,7 +119,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                         }
                         FocusScope.of(context).unfocus();
 
-                        DatePicker.showDateTimePicker(context,
+                        DatePicker.showDatePicker(context,
                             showTitleActions: true,
                             minTime: DateTime.now(),
                             maxTime: DateTime(2100, 12, 31), onChanged: (date) {
@@ -179,7 +179,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                           date = DateTime.now();
                         }
                         FocusScope.of(context).unfocus();
-                        DatePicker.showDateTimePicker(context,
+                        DatePicker.showDatePicker(context,
                             showTitleActions: true,
                             minTime: DateTime.now(),
                             maxTime: DateTime(2100, 12, 31), onChanged: (date) {
