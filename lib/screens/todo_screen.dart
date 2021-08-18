@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:etiqa_todo_list/database/todo_database.dart';
 import 'package:etiqa_todo_list/screens/add_edit_todo_screen.dart';
-import 'package:etiqa_todo_list/services/todoService.dart';
+
 import 'package:etiqa_todo_list/utils/constants.dart';
 import 'package:etiqa_todo_list/widgets/card_todo.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +45,11 @@ class _TodoScreenState extends State<TodoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('To-Do List'),
+        backgroundColor: Constants.darkOrange,
+        title: Text(
+          'To-Do List',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Constants.lightOrange,

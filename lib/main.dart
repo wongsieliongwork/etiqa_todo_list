@@ -18,11 +18,12 @@ class MyApp extends StatelessWidget {
         // remove debug logo on app
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+
             // Setting color and shadow for all appbar
-            primaryColor: Constants.darkOrange,
+            // primaryColor: Constants.darkOrange,
             appBarTheme: AppBarTheme(
-              elevation: 0,
-            )),
+          elevation: 0,
+        )),
         // First Screen On Todo Screen
         home: TodoScreen());
     //home: Testing());

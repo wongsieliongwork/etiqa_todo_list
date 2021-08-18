@@ -1,4 +1,5 @@
 import 'package:etiqa_todo_list/services/todoService.dart';
+import 'package:etiqa_todo_list/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -36,6 +37,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Constants.darkOrange,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -43,9 +45,13 @@ class _AddEditScreenState extends State<AddEditScreen> {
           child: Icon(
             Icons.keyboard_arrow_left,
             size: 40,
+            color: Colors.black,
           ),
         ),
-        title: Text('${widget.isEdit ? "Edit" : "Add New"} To-Do List'),
+        title: Text(
+          '${widget.isEdit ? "Edit" : "Add New"} To-Do List',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: Stack(
         children: [
