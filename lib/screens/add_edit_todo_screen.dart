@@ -3,7 +3,9 @@ import 'package:etiqa_todo_list/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class AddEditScreen extends StatefulWidget {
+  // IsEdit for edit interface
   final bool isEdit;
+  // Collect date from todo
   final dynamic data;
   AddEditScreen({required this.isEdit, this.data});
   @override
@@ -11,11 +13,15 @@ class AddEditScreen extends StatefulWidget {
 }
 
 class _AddEditScreenState extends State<AddEditScreen> {
+  // For title textfield
   final titleController = TextEditingController();
+
+  // show this text if not select yet
   String startDate = 'Select the date';
   String endDate = 'Select the date';
 
   void isEdit() {
+    // If navigator for edit, data will pass in the screen
     if (widget.isEdit) {
       titleController.text = widget.data['title'];
       startDate = widget.data['startDate'];
@@ -31,6 +37,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Show done button when keyboard is showing
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
 
     return Scaffold(
@@ -110,12 +117,17 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     GestureDetector(
                       onTap: () {
                         DateTime date;
+                        // Edit Screen Or Create Screen
                         if (widget.isEdit) {
+                          // date from todo
                           date = DateTime.parse(startDate);
                         } else {
+                          // set date from now
                           date = DateTime.now();
                         }
+                        // Keyboard will close when choose date
                         FocusScope.of(context).unfocus();
+                        // show calendar to pick
                         showDatePicker(
                           context: context,
                           initialDate: DateTime(
@@ -123,6 +135,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                           firstDate: DateTime.now(),
                           lastDate: DateTime(2100, 12, 31),
                         ).then((date) {
+                          // after choose date, the text will be show on screen
                           if (date != null) {
                             setState(() {
                               startDate =
@@ -130,21 +143,6 @@ class _AddEditScreenState extends State<AddEditScreen> {
                             });
                           }
                         });
-
-                        // DatePicker.showDatePicker(context,
-                        //     showTitleActions: true,
-                        //     minTime: DateTime.now(),
-                        //     maxTime: DateTime(2100, 12, 31), onChanged: (date) {
-                        //   print('change $date');
-                        // }, onConfirm: (date) {
-                        //   setState(() {
-                        //     startDate =
-                        //         "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
-                        //   });
-                        // },
-                        //     currentTime:
-                        //         DateTime(date.year, date.month, date.day),
-                        //     locale: LocaleType.en);
                       },
                       child: SizedBox(
                           width: double.infinity,
@@ -182,12 +180,18 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     GestureDetector(
                       onTap: () {
                         DateTime date;
+
+                        // Edit Screen Or Create Screen
                         if (widget.isEdit) {
+                          // date from todo
                           date = DateTime.parse(endDate);
                         } else {
+                          // set date from now
                           date = DateTime.now();
                         }
+                        // Keyboard will close when choose date
                         FocusScope.of(context).unfocus();
+                        // show calendar to pick
                         showDatePicker(
                           context: context,
                           initialDate: DateTime(
@@ -195,6 +199,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                           firstDate: DateTime.now(),
                           lastDate: DateTime(2100, 12, 31),
                         ).then((date) {
+                          // after choose date, the text will be show on screen
                           if (date != null) {
                             setState(() {
                               endDate =
@@ -202,27 +207,6 @@ class _AddEditScreenState extends State<AddEditScreen> {
                             });
                           }
                         });
-
-                        // DatePicker.showDatePicker(context,
-                        //     showTitleActions: true,
-                        //     minTime: DateTime.now(),
-                        //     maxTime: DateTime(
-                        //       2100,
-                        //       12,
-                        //       31,
-                        //     ), onChanged: (date) {
-                        //   print('change $date');
-                        // }, onConfirm: (date) {
-                        //   print('confirm $date');
-
-                        //   setState(() {
-                        //     endDate =
-                        //         "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
-                        //   });
-                        // },
-                        //     currentTime:
-                        //         DateTime(date.year, date.month, date.day),
-                        //     locale: LocaleType.en);
                       },
                       child: SizedBox(
                           width: double.infinity,
@@ -248,6 +232,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
               Spacer(),
               GestureDetector(
                 onTap: () {
+                  // Show dialog when title is empty , the date is not select and start date cannot more than end date
                   if (titleController.text == "") {
                     showDialog(
                         context: context,
@@ -264,6 +249,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                             ],
                           );
                         });
+                    // Show dialog when the start date is not select
                   } else if (startDate == 'Select the date') {
                     showDialog(
                         context: context,
@@ -280,6 +266,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                             ],
                           );
                         });
+                    // Show dialog when the end date is not select
                   } else if (endDate == 'Select the date') {
                     showDialog(
                         context: context,
@@ -296,6 +283,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                             ],
                           );
                         });
+                    // Show dialog when start date cannot more than end date
                   } else if (DateTime.parse(endDate)
                       .isBefore(DateTime.parse(startDate))) {
                     showDialog(
@@ -320,12 +308,17 @@ class _AddEditScreenState extends State<AddEditScreen> {
                       'endDate': endDate,
                       'isCompleted': false,
                     };
+                    // Edit Screen
                     if (widget.isEdit) {
+                      // Update the todo
                       TodoService().updateTodo(widget.data.id, data);
+
+                      // Create New Screen
                     } else {
+                      // Create new todo
                       TodoService().addTodo(data);
                     }
-
+                    // After edit or add, it will go back the home screen
                     Navigator.pop(context, true);
                   }
                 },
@@ -344,6 +337,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
               ),
             ],
           ),
+          // Show done button when keyboard is showing
           !isKeyboard
               ? Container()
               : Container(

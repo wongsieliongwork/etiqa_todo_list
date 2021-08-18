@@ -6,21 +6,18 @@ import 'package:jiffy/jiffy.dart';
 
 class CardTodo extends StatelessWidget {
   final dynamic todoData;
-
   CardTodo(this.todoData);
-  String getTimeString(int value) {
-    final int hour = value ~/ 60;
-    final int minutes = value % 60;
-
-    return '${hour.toString().padLeft(2, "0")}:${minutes.toString().padLeft(2, "0")}';
-  }
 
   @override
   Widget build(BuildContext context) {
+    // From String convert to DateTime format
     DateTime startDate = DateTime.parse(todoData['startDate']);
     DateTime endDate = DateTime.parse(todoData['endDate']);
+
+    // Time left from now between endDate
     final difference = Jiffy(endDate).diff(DateTime.now(), Units.DAY);
 
+    // Dismissible can scroll left or right for remove the todo
     return Dismissible(
       key: UniqueKey(),
       onDismissed: (DismissDirection direction) {
