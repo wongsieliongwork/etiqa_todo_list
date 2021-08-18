@@ -1,8 +1,6 @@
 import 'package:etiqa_todo_list/services/todoService.dart';
 import 'package:etiqa_todo_list/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class AddEditScreen extends StatefulWidget {
   final bool isEdit;
@@ -118,21 +116,35 @@ class _AddEditScreenState extends State<AddEditScreen> {
                           date = DateTime.now();
                         }
                         FocusScope.of(context).unfocus();
+                        showDatePicker(
+                          context: context,
+                          initialDate: DateTime(
+                              date.year, date.month, date.day), // Refer step 1
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2100, 12, 31),
+                        ).then((date) {
+                          if (date != null) {
+                            setState(() {
+                              startDate =
+                                  "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+                            });
+                          }
+                        });
 
-                        DatePicker.showDatePicker(context,
-                            showTitleActions: true,
-                            minTime: DateTime.now(),
-                            maxTime: DateTime(2100, 12, 31), onChanged: (date) {
-                          print('change $date');
-                        }, onConfirm: (date) {
-                          setState(() {
-                            startDate =
-                                "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
-                          });
-                        },
-                            currentTime:
-                                DateTime(date.year, date.month, date.day),
-                            locale: LocaleType.en);
+                        // DatePicker.showDatePicker(context,
+                        //     showTitleActions: true,
+                        //     minTime: DateTime.now(),
+                        //     maxTime: DateTime(2100, 12, 31), onChanged: (date) {
+                        //   print('change $date');
+                        // }, onConfirm: (date) {
+                        //   setState(() {
+                        //     startDate =
+                        //         "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+                        //   });
+                        // },
+                        //     currentTime:
+                        //         DateTime(date.year, date.month, date.day),
+                        //     locale: LocaleType.en);
                       },
                       child: SizedBox(
                           width: double.infinity,
@@ -176,26 +188,41 @@ class _AddEditScreenState extends State<AddEditScreen> {
                           date = DateTime.now();
                         }
                         FocusScope.of(context).unfocus();
-                        DatePicker.showDatePicker(context,
-                            showTitleActions: true,
-                            minTime: DateTime.now(),
-                            maxTime: DateTime(
-                              2100,
-                              12,
-                              31,
-                            ), onChanged: (date) {
-                          print('change $date');
-                        }, onConfirm: (date) {
-                          print('confirm $date');
+                        showDatePicker(
+                          context: context,
+                          initialDate: DateTime(
+                              date.year, date.month, date.day), // Refer step 1
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2100, 12, 31),
+                        ).then((date) {
+                          if (date != null) {
+                            setState(() {
+                              endDate =
+                                  "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+                            });
+                          }
+                        });
 
-                          setState(() {
-                            endDate =
-                                "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
-                          });
-                        },
-                            currentTime:
-                                DateTime(date.year, date.month, date.day),
-                            locale: LocaleType.en);
+                        // DatePicker.showDatePicker(context,
+                        //     showTitleActions: true,
+                        //     minTime: DateTime.now(),
+                        //     maxTime: DateTime(
+                        //       2100,
+                        //       12,
+                        //       31,
+                        //     ), onChanged: (date) {
+                        //   print('change $date');
+                        // }, onConfirm: (date) {
+                        //   print('confirm $date');
+
+                        //   setState(() {
+                        //     endDate =
+                        //         "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+                        //   });
+                        // },
+                        //     currentTime:
+                        //         DateTime(date.year, date.month, date.day),
+                        //     locale: LocaleType.en);
                       },
                       child: SizedBox(
                           width: double.infinity,

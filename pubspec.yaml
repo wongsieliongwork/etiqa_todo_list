@@ -26,7 +26,6 @@ dependencies:
   firebase_core: ^1.5.0
   flutter:
     sdk: flutter
-  flutter_datetime_picker: ^1.5.1
   flutter_launcher_icons: ^0.9.1
   fluttertoast: ^8.0.8
   jiffy: ^4.1.0
