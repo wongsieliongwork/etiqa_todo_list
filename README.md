@@ -2,4 +2,6 @@ This To-Do-List app is a user friendly task management created to capture and or
 
 The demo app link: https://etiqatodolist.herokuapp.com/#/
 
+Flutter version: 2.2.3
+
 Developed by: Wong Sie Liong
