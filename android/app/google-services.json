@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "539971184694",
+    "project_id": "etiqa-todolist",
+    "storage_bucket": "etiqa-todolist.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539971184694:android:57b3dd3fd48b2b34df9097",
+        "android_client_info": {
+          "package_name": "com.example.etiqa_todo_list"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539971184694-60rlgmdc2uu8o14pbc86bu3ekgj5k07e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.etiqa_todo_list",
+            "certificate_hash": "92d0e2e4926598adbaabb6abbe4e879885e4cb4d"
+          }
+        },
+        {
+          "client_id": "539971184694-i63iqs7osn99n1l5l03nrer8vg9vkmts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrZwHd4x7cSKmv6LFEPGT9aMunT9MNpnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539971184694-i63iqs7osn99n1l5l03nrer8vg9vkmts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

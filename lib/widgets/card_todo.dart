@@ -1,54 +1,34 @@
-import 'package:etiqa_todo_list/database/todo_database.dart';
 import 'package:etiqa_todo_list/screens/add_edit_todo_screen.dart';
+import 'package:etiqa_todo_list/services/todoService.dart';
 import 'package:etiqa_todo_list/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class CardTodo extends StatefulWidget {
+class CardTodo extends StatelessWidget {
   final dynamic todoData;
-  final Function onChanged;
-  CardTodo(this.todoData, this.onChanged);
 
-  @override
-  _CardTodoState createState() => _CardTodoState();
-}
-
-class _CardTodoState extends State<CardTodo> {
-  bool isCheck = false;
-
-  void getCheck() {
-    isCheck = widget.todoData['isCompleted'] == 1 ? true : false;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getCheck();
-  }
+  CardTodo(this.todoData);
 
   @override
   Widget build(BuildContext context) {
-    DateTime startDate = DateTime.parse(widget.todoData['startDate']);
-    DateTime endDate = DateTime.parse(widget.todoData['endDate']);
+    DateTime startDate = DateTime.parse(todoData['startDate']);
+    DateTime endDate = DateTime.parse(todoData['endDate']);
     final difference = endDate.difference(startDate).inDays;
     return Dismissible(
       key: UniqueKey(),
       onDismissed: (DismissDirection direction) {
-        TodoDatabase.deleteTodo(widget.todoData['id']);
+        TodoService().deleteTodo(todoData.id);
       },
       child: InkWell(
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () async {
-          bool value = await Navigator.push(
+          Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => AddEditScreen(
                         isEdit: true,
-                        data: widget.todoData,
+                        data: todoData,
                       )));
-          setState(() {
-            widget.onChanged();
-          });
         },
         child: Container(
             margin: EdgeInsets.all(15),
@@ -68,7 +48,7 @@ class _CardTodoState extends State<CardTodo> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                widget.todoData['title'],
+                                todoData['title'],
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               ),
@@ -91,7 +71,7 @@ class _CardTodoState extends State<CardTodo> {
                                         height: 5,
                                       ),
                                       Text(
-                                        widget.todoData['startDate'],
+                                        todoData['startDate'],
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       )
@@ -109,7 +89,7 @@ class _CardTodoState extends State<CardTodo> {
                                         height: 5,
                                       ),
                                       Text(
-                                        widget.todoData['endDate'],
+                                        todoData['endDate'],
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -160,7 +140,7 @@ class _CardTodoState extends State<CardTodo> {
                                     width: 10,
                                   ),
                                   Text(
-                                    widget.todoData['isCompleted'] == 1
+                                    todoData['isCompleted']
                                         ? 'Completed'
                                         : 'Incomplete',
                                     style:
@@ -175,19 +155,10 @@ class _CardTodoState extends State<CardTodo> {
                                       height: 30,
                                       width: 30,
                                       child: Checkbox(
-                                          value:
-                                              widget.todoData['isCompleted'] ==
-                                                      1
-                                                  ? true
-                                                  : false,
+                                          value: todoData['isCompleted'],
                                           onChanged: (value) {
-                                            setState(() {
-                                              TodoDatabase.tickTodo(
-                                                      widget.todoData['id'])
-                                                  .then((value) {
-                                                widget.onChanged();
-                                              });
-                                            });
+                                            TodoService().tickTodo(todoData.id,
+                                                todoData['isCompleted']);
                                           }))
                                 ],
                               )
@@ -204,8 +175,7 @@ class _CardTodoState extends State<CardTodo> {
                       padding: EdgeInsets.all(15),
                       child: GestureDetector(
                           onTap: () {
-                            TodoDatabase.deleteTodo(widget.todoData['id']);
-                            widget.onChanged();
+                            TodoService().deleteTodo(todoData.id);
                           },
                           child: Icon(Icons.cancel))),
                 )

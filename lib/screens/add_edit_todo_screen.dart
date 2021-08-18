@@ -1,5 +1,4 @@
-import 'package:etiqa_todo_list/database/todo_database.dart';
-import 'package:etiqa_todo_list/utils/constants.dart';
+import 'package:etiqa_todo_list/services/todoService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -264,12 +263,12 @@ class _AddEditScreenState extends State<AddEditScreen> {
                       'title': titleController.text,
                       'startDate': startDate,
                       'endDate': endDate,
-                      'isCompleted': 0,
+                      'isCompleted': false,
                     };
                     if (widget.isEdit) {
-                      TodoDatabase.editTodo(widget.data['id'], data);
+                      TodoService().updateTodo(widget.data.id, data);
                     } else {
-                      TodoDatabase.createTodo(data);
+                      TodoService().addTodo(data);
                     }
 
                     Navigator.pop(context, true);

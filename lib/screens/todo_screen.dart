@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:etiqa_todo_list/database/todo_database.dart';
 import 'package:etiqa_todo_list/screens/add_edit_todo_screen.dart';
+import 'package:etiqa_todo_list/services/todoService.dart';
 import 'package:etiqa_todo_list/utils/constants.dart';
 import 'package:etiqa_todo_list/widgets/card_todo.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +14,23 @@ class TodoScreen extends StatefulWidget {
 }
 
 class _TodoScreenState extends State<TodoScreen> {
+  // List todoList = [];
+  // void getTodoList() {
+  //   TodoDatabase.getTodoList().then((value) {
+  //     setState(() {
+  //       print(value);
+  //       todoList = value;
+  //     });
+  //   });
+  // }
+
   List todoList = [];
-  void getTodoList() {
-    TodoDatabase.getTodoList().then((value) {
+  void getTodo() {
+    CollectionReference collectionReference =
+        FirebaseFirestore.instance.collection('todo');
+    collectionReference.snapshots().listen((snapshot) {
       setState(() {
-        print(value);
-        todoList = value;
+        todoList = snapshot.docs;
       });
     });
   }
@@ -25,7 +38,8 @@ class _TodoScreenState extends State<TodoScreen> {
   @override
   void initState() {
     super.initState();
-    getTodoList();
+    // getTodoList();
+    getTodo();
   }
 
   @override
@@ -37,18 +51,13 @@ class _TodoScreenState extends State<TodoScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Constants.lightOrange,
         child: Icon(Icons.add),
-        onPressed: () async {
-          bool value = await Navigator.push(
+        onPressed: () {
+          Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => AddEditScreen(
                         isEdit: false,
                       )));
-          if (value == true) {
-            setState(() {
-              getTodoList();
-            });
-          }
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -59,11 +68,11 @@ class _TodoScreenState extends State<TodoScreen> {
           : ListView.builder(
               itemCount: todoList.length,
               itemBuilder: (context, index) {
-                return CardTodo(todoList[index], () {
-                  setState(() {
-                    getTodoList();
-                  });
-                });
+                return GestureDetector(
+                  child: CardTodo(
+                    todoList[index],
+                  ),
+                );
               }),
     );
   }
