@@ -19,7 +19,7 @@ class CardTodo extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime startDate = DateTime.parse(todoData['startDate']);
     DateTime endDate = DateTime.parse(todoData['endDate']);
-    final difference = Jiffy(endDate).diff(startDate, Units.DAY);
+    final difference = Jiffy(endDate).diff(DateTime.now(), Units.DAY);
 
     return Dismissible(
       key: UniqueKey(),

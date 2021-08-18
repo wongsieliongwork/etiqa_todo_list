@@ -269,6 +269,23 @@ class _AddEditScreenState extends State<AddEditScreen> {
                             ],
                           );
                         });
+                  } else if (DateTime.parse(endDate)
+                      .isBefore(DateTime.parse(startDate))) {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Invalid start date and end date.'),
+                            actions: [
+                              TextButton(
+                                child: Text("CANCEL"),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          );
+                        });
                   } else {
                     final data = {
                       'title': titleController.text,
