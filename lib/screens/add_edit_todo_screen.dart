@@ -138,7 +138,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                               date.hour,
                               date.minute,
                             ),
-                            locale: LocaleType.en);
+                            locale: LocaleType.zh);
                       },
                       child: SizedBox(
                           width: double.infinity,
@@ -203,7 +203,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                               date.hour,
                               date.minute,
                             ),
-                            locale: LocaleType.en);
+                            locale: LocaleType.zh);
                       },
                       child: SizedBox(
                           width: double.infinity,
@@ -299,7 +299,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     color: Colors.black,
                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                     child: Text(
-                      widget.isEdit ? 'Edit' : 'Create Now',
+                      widget.isEdit ? 'Save' : 'Create Now',
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
