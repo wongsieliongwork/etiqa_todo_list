@@ -19,10 +19,8 @@ class CardTodo extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime startDate = DateTime.parse(todoData['startDate']);
     DateTime endDate = DateTime.parse(todoData['endDate']);
-    final difference = Jiffy(endDate).diff(startDate, Units.MINUTE);
-    final now = Duration(minutes: difference.toInt());
-    String sDuration =
-        "${now.inDays} Days\n${now.inHours.remainder(24)} Hours\n${(now.inMinutes.remainder(60))} Minutes";
+    final difference = Jiffy(endDate).diff(startDate, Units.DAY);
+
     return Dismissible(
       key: UniqueKey(),
       onDismissed: (DismissDirection direction) {
@@ -86,12 +84,6 @@ class CardTodo extends StatelessWidget {
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        Jiffy(startDate).format('h:mm a'),
-                                      )
                                     ],
                                   ),
                                   Column(
@@ -110,12 +102,6 @@ class CardTodo extends StatelessWidget {
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        Jiffy(endDate).format('h:mm a'),
-                                      )
                                     ],
                                   ),
                                   Column(
@@ -132,7 +118,7 @@ class CardTodo extends StatelessWidget {
                                       Text(
                                         // '$difference Days',
                                         // getTimeString(difference.toInt()),
-                                        sDuration,
+                                        '$difference Days',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       )

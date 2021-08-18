@@ -22,14 +22,19 @@ class _TodoScreenState extends State<TodoScreen> {
   //     });
   //   });
   // }
+  CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection('todo');
 
   List todoList = [];
   void getTodo() {
-    CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection('todo');
-    collectionReference.snapshots().listen((snapshot) {
+    collectionReference
+        .orderBy('isCompleted', descending: false)
+        .snapshots()
+        .listen((snapshot) {
       setState(() {
         todoList = snapshot.docs;
+
+        print(todoList);
       });
     });
   }
