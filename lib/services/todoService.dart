@@ -4,7 +4,6 @@ class TodoService {
   CollectionReference todo = FirebaseFirestore.instance.collection('todo');
 
   Future<void> addTodo(final params) {
-    // Call the user's CollectionReference to add todo
     return todo
         .add(
           params,
@@ -21,16 +20,16 @@ class TodoService {
         .update(
           params,
         )
-        .then((value) => print("User Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .then((value) => print("Todo Updated"))
+        .catchError((error) => print("Failed to update todo: $error"));
   }
 
   Future<void> deleteTodo(String id) {
     return todo
         .doc(id)
         .delete()
-        .then((value) => print("User Deleted"))
-        .catchError((error) => print("Failed to delete user: $error"));
+        .then((value) => print("Todo Deleted"))
+        .catchError((error) => print("Failed to delete todo: $error"));
   }
 
   Future<void> tickTodo(String id, bool isTick) {
@@ -39,7 +38,7 @@ class TodoService {
         .update(
           {'isCompleted': isTick ? false : true},
         )
-        .then((value) => print("User Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .then((value) => print("Ticked"))
+        .catchError((error) => print("Failed to tick: $error"));
   }
 }

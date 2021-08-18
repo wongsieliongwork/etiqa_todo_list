@@ -130,8 +130,11 @@ class _AddEditScreenState extends State<AddEditScreen> {
                                 "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
                           });
                         },
-                            currentTime: DateTime(date.year, date.month,
-                                date.day, date.hour, date.minute),
+                            currentTime: DateTime(
+                              date.year,
+                              date.month,
+                              date.day,
+                            ),
                             locale: LocaleType.en);
                       },
                       child: SizedBox(
@@ -189,8 +192,11 @@ class _AddEditScreenState extends State<AddEditScreen> {
                                 "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
                           });
                         },
-                            currentTime: DateTime(date.year, date.month,
-                                date.day, date.hour, date.minute),
+                            currentTime: DateTime(
+                              date.year,
+                              date.month,
+                              date.day,
+                            ),
                             locale: LocaleType.en);
                       },
                       child: SizedBox(
