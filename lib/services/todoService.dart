@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TodoService {
-  // Todo Collection from cloud firestore
+  // To-do-list collection from cloud firestore
   CollectionReference todo = FirebaseFirestore.instance.collection('todo');
 
-// Add Todo
+// Add to-do-list
   Future<void> addTodo(final params) {
     return todo
         .add(params)
@@ -12,7 +12,7 @@ class TodoService {
         .catchError((error) => print("Failed to add todo: $error"));
   }
 
-// Update or edit Todo
+// Update or edit to-do-list
   Future<void> updateTodo(String id, final params) {
     return todo
         .doc(id)
@@ -21,7 +21,7 @@ class TodoService {
         .catchError((error) => print("Failed to update todo: $error"));
   }
 
-// Delete Todo
+// Delete to-do-list
   Future<void> deleteTodo(String id) {
     return todo
         .doc(id)
@@ -30,7 +30,7 @@ class TodoService {
         .catchError((error) => print("Failed to delete todo: $error"));
   }
 
-// Tick Todo for complete or not
+// Tick to-do-list for complete or incompleted
   Future<void> tickTodo(String id, bool isTick) {
     return todo
         .doc(id)

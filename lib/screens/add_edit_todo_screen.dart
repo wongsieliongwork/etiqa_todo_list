@@ -3,9 +3,10 @@ import 'package:etiqa_todo_list/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class AddEditScreen extends StatefulWidget {
-  // IsEdit for edit screen
+  // IsEdit is set to True, then go to edit screen,
+  // likewise for False go to create new screen
   final bool isEdit;
-  // Collect date from todo
+  // Trigger date from to-do-list card
   final dynamic data;
   AddEditScreen({required this.isEdit, this.data});
   @override
@@ -16,12 +17,12 @@ class _AddEditScreenState extends State<AddEditScreen> {
   // title controller
   final titleController = TextEditingController();
 
-  // show this text if not select yet
+  // Set guiding text in the select field
   String startDate = 'Select the date';
   String endDate = 'Select the date';
 
   void isEdit() {
-    // If navigator to edit screen, data will be show
+    //When existing to-do-list card is clicked, trigger data into edit screen.
     if (widget.isEdit) {
       titleController.text = widget.data['title'];
       startDate = widget.data['startDate'];
@@ -37,7 +38,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Show done button when keyboard is showing
+    // Show Done button when keyboard is tapped
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
 
     return Scaffold(
@@ -53,7 +54,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
             color: Colors.black,
           ),
         ),
-        // App bar text will be different for edit screen and add screen
+        // Two different AppBar title for Edit screen and Add screen
         title: Text(
           '${widget.isEdit ? "Edit" : "Add New"} To-Do List',
           style: TextStyle(color: Colors.black),
@@ -119,23 +120,23 @@ class _AddEditScreenState extends State<AddEditScreen> {
                         DateTime date;
                         // Edit Screen Or Create Screen
                         if (widget.isEdit) {
-                          // date from todo
+                          // date from to-do-list
                           date = DateTime.parse(startDate);
                         } else {
                           // set date from now
                           date = DateTime.now();
                         }
-                        // Keyboard will close when choose date
+                        // Keyboard will close when date is choose
                         FocusScope.of(context).unfocus();
-                        // show calendar to pick
+                        // Display calendar for selection
                         showDatePicker(
                           context: context,
-                          initialDate: DateTime(
-                              date.year, date.month, date.day), // Refer step 1
+                          initialDate:
+                              DateTime(date.year, date.month, date.day),
                           firstDate: DateTime.now(),
                           lastDate: DateTime(2100, 12, 31),
                         ).then((date) {
-                          // after choose date, the text will be show on screen
+                          // After date is choose, the date will be displayed on screen
                           if (date != null) {
                             setState(() {
                               startDate =
@@ -182,18 +183,18 @@ class _AddEditScreenState extends State<AddEditScreen> {
                       onTap: () {
                         DateTime date;
 
-                        // Edit Screen
+                        // Edit Screen Or Create Screen
                         if (widget.isEdit) {
-                          // date from todo
+                          // date from to-do-list
                           date = DateTime.parse(endDate);
                           //Create New Screen
                         } else {
                           // set date from now
                           date = DateTime.now();
                         }
-                        // Keyboard will close when choose date
+                        // Keyboard will close when date is choose
                         FocusScope.of(context).unfocus();
-                        // show calendar to pick
+                        // Display calendar for selection
                         showDatePicker(
                           context: context,
                           initialDate: DateTime(
@@ -201,7 +202,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                           firstDate: DateTime.now(),
                           lastDate: DateTime(2100, 12, 31),
                         ).then((date) {
-                          // after choose date, the text will be show on screen
+                          // After date is choose, the date will be displayed on screen
                           if (date != null) {
                             setState(() {
                               endDate =
@@ -234,7 +235,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
               Spacer(),
               GestureDetector(
                 onTap: () {
-                  // Show dialog message when title is empty , the date is not select and start date cannot more than end date
+                  // Show dialog message when title is empty
                   if (titleController.text == "") {
                     showDialog(
                         context: context,
@@ -251,7 +252,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                             ],
                           );
                         });
-                    // Show dialog message when the start date is not select
+                    // Show dialog message when the start date is not selected
                   } else if (startDate == 'Select the date') {
                     showDialog(
                         context: context,
@@ -268,7 +269,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                             ],
                           );
                         });
-                    // Show dialog message when the end date is not select
+                    // Show dialog message when the end date is not selected
                   } else if (endDate == 'Select the date') {
                     showDialog(
                         context: context,
@@ -285,7 +286,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                             ],
                           );
                         });
-                    // Show dialog message when start date cannot more than end date
+                    // Show dialog message when start date cannot be more than end date
                   } else if (DateTime.parse(endDate)
                       .isBefore(DateTime.parse(startDate))) {
                     showDialog(
@@ -312,15 +313,15 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     };
                     // Edit Screen
                     if (widget.isEdit) {
-                      // Update the todo
+                      // Update the to-do-list
                       TodoService().updateTodo(widget.data.id, data);
 
                       // Create New Screen
                     } else {
-                      // Create new todo
+                      // Create new to-do-list
                       TodoService().addTodo(data);
                     }
-                    // After edit or add, it will go back the home screen
+                    // After edit or add button is clicked, it will go back to home screen
                     Navigator.pop(context, true);
                   }
                 },
@@ -339,7 +340,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
               ),
             ],
           ),
-          // Show done button when keyboard is showing
+          // Show Done button when keyboard is tapped
           !isKeyboard
               ? Container()
               : Container(

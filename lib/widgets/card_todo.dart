@@ -10,25 +10,25 @@ class CardTodo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // From String convert to DateTime format
+    // Convert string to DateTime format
     DateTime startDate = DateTime.parse(todoData['startDate']);
     DateTime endDate = DateTime.parse(todoData['endDate']);
 
-    // Time left from now between end Date
+    // Calculate time left between today date and end date
     final difference = Jiffy(endDate).diff(DateTime.now(), Units.DAY);
 
-    // Dismissible can scroll left or right for remove the todo
+    // Dismissible can scroll left or right to remove to-do-list card
     return Dismissible(
       key: UniqueKey(),
       onDismissed: (DismissDirection direction) {
-        //Delete todo function
+        //Delete to-do-list function
         TodoService().deleteTodo(todoData.id);
       },
       child: InkWell(
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () async {
-          // Go to Edit And show todo information screen
+          // navigate to edit screen to show detail of to-do-list information
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -119,8 +119,6 @@ class CardTodo extends StatelessWidget {
                                         height: 5,
                                       ),
                                       Text(
-                                        // '$difference Days',
-                                        // getTimeString(difference.toInt()),
                                         '$difference Days',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
@@ -143,8 +141,7 @@ class CardTodo extends StatelessWidget {
                               )),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                            // Status for is Completed
+                            // Display status either completed or incompleted
                             children: [
                               Row(
                                 children: [
@@ -164,10 +161,10 @@ class CardTodo extends StatelessWidget {
                                   ),
                                 ],
                               ),
+                              // Ticking UI function
                               Row(
                                 children: [
                                   Text('Tick if completed'),
-                                  // Tick if already completed
                                   Container(
                                       height: 30,
                                       width: 30,

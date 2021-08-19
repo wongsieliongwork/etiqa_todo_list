@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
-  // Set up from firebase
+  // Start firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -14,14 +14,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Etiqa TodoList',
-        // remove debug logo on the app
+        // removed debug logo on the app
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            // App Bar set to no shawdow
+            // Appbar set to no shawdow
             appBarTheme: AppBarTheme(
           elevation: 0,
         )),
-        // First Screen On Todo Screen
+        //Set To-do-List screen as a home screen
         home: TodoScreen());
   }
 }
