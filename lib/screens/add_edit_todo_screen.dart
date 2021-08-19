@@ -3,7 +3,7 @@ import 'package:etiqa_todo_list/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class AddEditScreen extends StatefulWidget {
-  // IsEdit for edit interface
+  // IsEdit for edit screen
   final bool isEdit;
   // Collect date from todo
   final dynamic data;
@@ -13,7 +13,7 @@ class AddEditScreen extends StatefulWidget {
 }
 
 class _AddEditScreenState extends State<AddEditScreen> {
-  // For title textfield
+  // title controller
   final titleController = TextEditingController();
 
   // show this text if not select yet
@@ -21,7 +21,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
   String endDate = 'Select the date';
 
   void isEdit() {
-    // If navigator for edit, data will pass in the screen
+    // If navigator to edit screen, data will be show
     if (widget.isEdit) {
       titleController.text = widget.data['title'];
       startDate = widget.data['startDate'];
@@ -53,6 +53,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
             color: Colors.black,
           ),
         ),
+        // App bar text will be different for edit screen and add screen
         title: Text(
           '${widget.isEdit ? "Edit" : "Add New"} To-Do List',
           style: TextStyle(color: Colors.black),
@@ -83,13 +84,11 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     SizedBox(
                       height: 10,
                     ),
+                    // TextField for title
                     TextField(
                       controller: titleController,
                       maxLines: 5,
                       decoration: InputDecoration(
-                        // disabledBorder: OutlineInputBorder(
-                        //   borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                        // ),
                         focusedBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.grey, width: 1.0),
@@ -104,6 +103,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     SizedBox(
                       height: 15,
                     ),
+                    // Choose Start Date
                     Text(
                       'Start Date ',
                       style: TextStyle(
@@ -167,6 +167,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     SizedBox(
                       height: 20,
                     ),
+                    // Choose Estimate End Date
                     Text(
                       'Estimate End Date ',
                       style: TextStyle(
@@ -181,10 +182,11 @@ class _AddEditScreenState extends State<AddEditScreen> {
                       onTap: () {
                         DateTime date;
 
-                        // Edit Screen Or Create Screen
+                        // Edit Screen
                         if (widget.isEdit) {
                           // date from todo
                           date = DateTime.parse(endDate);
+                          //Create New Screen
                         } else {
                           // set date from now
                           date = DateTime.now();
@@ -232,7 +234,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
               Spacer(),
               GestureDetector(
                 onTap: () {
-                  // Show dialog when title is empty , the date is not select and start date cannot more than end date
+                  // Show dialog message when title is empty , the date is not select and start date cannot more than end date
                   if (titleController.text == "") {
                     showDialog(
                         context: context,
@@ -249,7 +251,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                             ],
                           );
                         });
-                    // Show dialog when the start date is not select
+                    // Show dialog message when the start date is not select
                   } else if (startDate == 'Select the date') {
                     showDialog(
                         context: context,
@@ -266,7 +268,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                             ],
                           );
                         });
-                    // Show dialog when the end date is not select
+                    // Show dialog message when the end date is not select
                   } else if (endDate == 'Select the date') {
                     showDialog(
                         context: context,
@@ -283,7 +285,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                             ],
                           );
                         });
-                    // Show dialog when start date cannot more than end date
+                    // Show dialog message when start date cannot more than end date
                   } else if (DateTime.parse(endDate)
                       .isBefore(DateTime.parse(startDate))) {
                     showDialog(

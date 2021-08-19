@@ -14,19 +14,21 @@ class CardTodo extends StatelessWidget {
     DateTime startDate = DateTime.parse(todoData['startDate']);
     DateTime endDate = DateTime.parse(todoData['endDate']);
 
-    // Time left from now between endDate
+    // Time left from now between end Date
     final difference = Jiffy(endDate).diff(DateTime.now(), Units.DAY);
 
     // Dismissible can scroll left or right for remove the todo
     return Dismissible(
       key: UniqueKey(),
       onDismissed: (DismissDirection direction) {
+        //Delete todo function
         TodoService().deleteTodo(todoData.id);
       },
       child: InkWell(
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () async {
+          // Go to Edit And show todo information screen
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -52,6 +54,7 @@ class CardTodo extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              // Title
                               Text(
                                 todoData['title'],
                                 style: TextStyle(
@@ -65,6 +68,7 @@ class CardTodo extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  // Start Date
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -83,6 +87,7 @@ class CardTodo extends StatelessWidget {
                                       ),
                                     ],
                                   ),
+                                  // End Date
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -101,6 +106,7 @@ class CardTodo extends StatelessWidget {
                                       ),
                                     ],
                                   ),
+                                  // Time Left
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -137,6 +143,8 @@ class CardTodo extends StatelessWidget {
                               )),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                            // Status for is Completed
                             children: [
                               Row(
                                 children: [
@@ -159,6 +167,7 @@ class CardTodo extends StatelessWidget {
                               Row(
                                 children: [
                                   Text('Tick if completed'),
+                                  // Tick if already completed
                                   Container(
                                       height: 30,
                                       width: 30,

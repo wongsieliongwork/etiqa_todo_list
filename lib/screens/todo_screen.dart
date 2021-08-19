@@ -10,7 +10,7 @@ class TodoScreen extends StatefulWidget {
 }
 
 class _TodoScreenState extends State<TodoScreen> {
-  // Todo Collection
+  // Todo Collection from firestore
   CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('todo');
 
@@ -18,7 +18,7 @@ class _TodoScreenState extends State<TodoScreen> {
   void getTodo() {
     // Get data from todo collection
     collectionReference
-        // The completed todo will move to the below of the incompleted todo
+        // Order by "isCompleted" is set by the completed todo will move to the below of the incompleted todo
         .orderBy('isCompleted', descending: false)
         .snapshots()
         .listen((snapshot) {
@@ -56,16 +56,19 @@ class _TodoScreenState extends State<TodoScreen> {
                       )));
         },
       ),
+      // Add button
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       // Show text empty when todo is empty
       body: todoList.isEmpty
           ? Container(
               child: Center(child: Text('Empty')),
             )
+          // List of todo
           : ListView.builder(
               itemCount: todoList.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
+                  // Card of todo
                   child: CardTodo(
                     todoList[index],
                   ),
