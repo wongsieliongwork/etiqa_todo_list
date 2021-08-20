@@ -4,4 +4,6 @@ The demo app link: https://etiqatodolist.herokuapp.com/#/
 
 Flutter version: 2.2.3
 
+only can run android and web only
+
 Developed by: Wong Sie Liong
